@@ -1,0 +1,22 @@
+// use prisma-8
+
+  model Category {
+  id        String      @id @default(uuid())
+  title     String   @unique
+  products  Product[]
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+}
+
+model Product {
+  id       String      @id @default(uuid())
+  name     String
+  category  Category @relation(fields: [categoryId], references: [id])
+  categoryId String 
+  imageUrl  String
+  price     Decimal
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  @@index([categoryId])
+}
