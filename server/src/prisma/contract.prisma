@@ -4,6 +4,7 @@
   id        String      @id @default(uuid())
   title     String   @unique
   products  Product[]
+  imageUrl  String
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
 }

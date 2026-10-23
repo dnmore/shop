@@ -24,7 +24,7 @@ app.get(
   "/api/categories",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const categories = await db.orm.public.Category.all();
+      const categories = await db.orm.public.Category.select("id", "title", "imageUrl").all();
       res.status(200).json({ categories });
     } catch (err) {
       next(err);

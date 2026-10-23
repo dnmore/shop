@@ -7,11 +7,11 @@ async function main() {
 
   const categories = await Promise.all(
     [
-      { title: "Hats" },
-      { title: "Sneakers" },
-      { title: "Jackets" },
-      { title: "Womens" },
-      { title: "Mens" },
+      { title: "Hats", imageUrl:"https://i.ibb.co/cvpntL1/hats.png" },
+      { title: "Sneakers", imageUrl:"https://i.ibb.co/HTXkp1ns/sneakers.png" },
+      { title: "Jackets", imageUrl:"https://i.ibb.co/cS72wbwm/jackets.jpg" },
+      { title: "Womens", imageUrl:"https://i.ibb.co/7CQVJNm/womens.png" },
+      { title: "Mens", imageUrl:"https://i.ibb.co/Qv5TRkhw/mens.jpg" },
     ].map((data) => db.orm.public.Category.create(data)),
   );
 
