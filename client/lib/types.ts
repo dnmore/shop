@@ -1,6 +1,6 @@
-interface CategoryCard {
+interface ProductCard {
     id: string,
-    title: string,
+    name: string,
     imageUrl: string,
-    
+    price: number,
 }

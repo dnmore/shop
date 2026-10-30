@@ -33,13 +33,6 @@
                   "kind": "scalar"
                 }
               },
-              "imageUrl": {
-                "nullable": false,
-                "type": {
-                  "codecId": "pg/text@1",
-                  "kind": "scalar"
-                }
-              },
               "title": {
                 "nullable": false,
                 "type": {
@@ -60,10 +53,10 @@
                 "cardinality": "1:N",
                 "on": {
                   "localFields": [
-                    "id"
+                    "title"
                   ],
                   "targetFields": [
-                    "categoryId"
+                    "categoryTitle"
                   ]
                 },
                 "to": {
@@ -80,9 +73,6 @@
                 "id": {
                   "column": "id"
                 },
-                "imageUrl": {
-                  "column": "imageUrl"
-                },
                 "title": {
                   "column": "title"
                 },
@@ -96,7 +86,7 @@
           },
           "Product": {
             "fields": {
-              "categoryId": {
+              "categoryTitle": {
                 "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
@@ -152,10 +142,10 @@
                 "nullable": false,
                 "on": {
                   "localFields": [
-                    "categoryId"
+                    "categoryTitle"
                   ],
                   "targetFields": [
-                    "id"
+                    "title"
                   ]
                 },
                 "to": {
@@ -166,8 +156,8 @@
             },
             "storage": {
               "fields": {
-                "categoryId": {
-                  "column": "categoryId"
+                "categoryTitle": {
+                  "column": "categoryTitle"
                 },
                 "createdAt": {
                   "column": "createdAt"
@@ -217,11 +207,6 @@
                   "dataType": "pg/text",
                   "nullable": false
                 },
-                "imageUrl": {
-                  "codecId": "pg/text@1",
-                  "dataType": "pg/text",
-                  "nullable": false
-                },
                 "title": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
@@ -250,7 +235,7 @@
             },
             "Product": {
               "columns": {
-                "categoryId": {
+                "categoryTitle": {
                   "codecId": "pg/text@1",
                   "dataType": "pg/text",
                   "nullable": false
@@ -293,18 +278,18 @@
               "foreignKeys": [
                 {
                   "index": {
-                    "name": "Product_categoryId_idx_15c304f2"
+                    "name": "Product_categoryTitle_idx_aadb4bf8"
                   },
                   "source": {
                     "columns": [
-                      "categoryId"
+                      "categoryTitle"
                     ],
                     "namespaceId": "public",
                     "tableName": "Product"
                   },
                   "target": {
                     "columns": [
-                      "id"
+                      "title"
                     ],
                     "namespaceId": "public",
                     "tableName": "Category"
@@ -314,10 +299,10 @@
               "indexes": [
                 {
                   "columns": [
-                    "categoryId"
+                    "categoryTitle"
                   ],
-                  "name": "Product_categoryId_idx_15c304f2",
-                  "prefix": "Product_categoryId_idx",
+                  "name": "Product_categoryTitle_idx_aadb4bf8",
+                  "prefix": "Product_categoryTitle_idx",
                   "unique": false
                 }
               ],
@@ -334,7 +319,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "bcde7e5e2e8488b1288a08cf7ce15e05c0c9dd96eb7fa8df919dc0f0b31b662f"
+    "storageHash": "c3651a0359593e90f959926b1a125d16bea7e905fc43e904a227bcebbe244495"
   },
   "execution": {
     "executionHash": "5758c8c0fc33b6ed1856171a872c2b08d13c34b4916392e9b755f0f06263576d",

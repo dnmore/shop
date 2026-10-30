@@ -4,7 +4,6 @@
   id        String      @id @default(uuid())
   title     String   @unique
   products  Product[]
-  imageUrl  String
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
 }
@@ -12,12 +11,12 @@
 model Product {
   id       String      @id @default(uuid())
   name     String
-  category  Category @relation(fields: [categoryId], references: [id])
-  categoryId String 
+  category  Category @relation(fields: [categoryTitle], references: [title])
+  categoryTitle String 
   imageUrl  String
   price     Decimal
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
 
-  @@index([categoryId])
+  @@index([categoryTitle])
 }

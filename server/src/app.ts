@@ -24,7 +24,7 @@ app.get(
   "/api/categories",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const categories = await db.orm.public.Category.select("id", "title", "imageUrl").all();
+      const categories = await db.orm.public.Category.select("title").all();
       res.status(200).json({ categories });
     } catch (err) {
       next(err);
@@ -32,14 +32,37 @@ app.get(
   },
 );
 
-// get all products per categoryId
+// get all products
+app.get("/api/products/all", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const products = await db.orm.public.Product.select("id", "name", "price", "imageUrl", "categoryTitle").all();
+    res.status(200).json({ products });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// get homepage products
+app.get("/api/products", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const products = await db.orm.public.Product.orderBy((p) => p.createdAt.desc())
+  .limit(8).all();
+    res.status(200).json({ products });
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+
+// get all products per categoryTitle
 app.get(
-  "/api/categories/:categoryId",
+  "/api/categories/:categoryTitle",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const categoryId = String(req.params.categoryId);
+      const categoryTitle = String(req.params.categoryTitle);
       const categoryProducts = await db.orm.public.Product.where((c) =>
-        c.categoryId.eq(categoryId),
+        c.categoryTitle.eq(categoryTitle),
       ).all();
 
       res.status(200).json(categoryProducts);
@@ -67,5 +90,5 @@ app.get(
 );
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });
