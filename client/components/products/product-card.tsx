@@ -1,11 +1,10 @@
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+"use client"
+
+import { useCartStore } from "@/app/store/cart-store"
 
 import { Button } from "@/components/ui/button"
 import {
   Card,
-  CardAction,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -18,6 +17,8 @@ import {
 
 
 export function ProductCard({ product }: { product: ProductCard }) {
+
+  const { addToCart} = useCartStore()
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0">
       <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
@@ -34,7 +35,9 @@ export function ProductCard({ product }: { product: ProductCard }) {
    
       </CardHeader>
       <CardFooter>
-        <Button className="w-full">Add to Cart</Button>
+        <Button className="w-full" onClick={() => addToCart({ ...product, quantity: 1 })}>
+          Add to Cart
+        </Button>
       </CardFooter>
     </Card>
   )
