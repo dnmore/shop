@@ -1,4 +1,12 @@
 import { db } from "./src/prisma/db";
+import { faker } from "@faker-js/faker";
+
+function randomDateBetweenJanAndJun2026() {
+  return faker.date.between({
+    from: new Date("2026-01-01T00:00:00.000Z"),
+    to: new Date("2026-06-30T23:59:59.999Z"),
+  });
+}
 
 async function main() {
   // =========================
@@ -11,11 +19,11 @@ async function main() {
       { title: "sneakers" },
       { title: "jackets" },
       { title: "women" },
-      { title: "men"},
+      { title: "men" },
     ].map((data) => db.orm.public.Category.create(data)),
   );
 
-  console.log("Seeded categories", { categories });
+  // console.log("Seeded categories", { categories });
 
   // =========================
   // PRODUCTS
@@ -54,14 +62,14 @@ async function main() {
         imageUrl: "https://i.ibb.co/YTjW3vF/green-beanie.png",
         price: "18",
       },
-      
+
       {
         name: "Red Beanie",
         categoryTitle: categories[0].title,
         imageUrl: "https://i.ibb.co/bLB646Z/red-beanie.png",
         price: "18",
       },
-     
+
       // SNEAKERS
 
       {
@@ -100,7 +108,6 @@ async function main() {
         imageUrl: "https://i.ibb.co/fMTV342/nike-brown.png",
         price: "160",
       },
-    
 
       // JACKETS
 
@@ -128,7 +135,7 @@ async function main() {
         imageUrl: "https://i.ibb.co/s96FpdP/brown-shearling.png",
         price: "165",
       },
-    
+
       // WOMEN
 
       {
@@ -167,7 +174,6 @@ async function main() {
         imageUrl: "https://i.ibb.co/v1cvwNf/yellow-track-suit.png",
         price: "135",
       },
-     
 
       // MEN
 
@@ -209,8 +215,77 @@ async function main() {
       },
     ].map((data) => db.orm.public.Product.create(data)),
   );
-  console.log("Seeded products", { products });
+  // console.log("Seeded products", { products });
 
+  // =========================
+  // ORDERS
+  // =========================
+
+  for (let i = 0; i < 200; i++) {
+    // Generate a random order date
+    const orderDate = randomDateBetweenJanAndJun2026();
+
+    // Select a random order status
+    const status = faker.helpers.arrayElement([
+      "PENDING",
+      "PAID",
+      "COMPLETED",
+      "RETURNED",
+      "REFUNDED",
+    ]);
+
+    // Generate a random number of distinct products
+    const itemsCount = faker.number.int({
+      min: 1,
+      max: 4,
+    });
+
+    // Select random products
+    const selectedItems = faker.helpers.arrayElements(products, itemsCount);
+
+    // Prepare the order items
+    const orderItemsData = selectedItems.map((item) => {
+      // Random quantity between 1 and 3
+      const quantity = faker.number.int({
+        min: 1,
+        max: 3,
+      });
+
+      // Convert unit price into cents
+      const unitPriceCents = Math.round(Number(item.price) * 100);
+
+      // Calculate total price in cents
+      const totalPriceCents = unitPriceCents * quantity;
+
+      return {
+        itemId: item.id,
+        quantity,
+        unitPrice: (unitPriceCents / 100).toFixed(2),
+        totalPrice: (totalPriceCents / 100).toFixed(2),
+      };
+    });
+
+    // Calculate the total order amount in cents
+    const totalCents = orderItemsData.reduce(
+      (acc, item) => acc + Math.round(Number(item.totalPrice) * 100),
+      0,
+    );
+
+    // Convert total into a decimal string
+    const total = (totalCents / 100).toFixed(2);
+
+    // Create the order and its related order items
+    await db.orm.public.Order.create({
+      status,
+      total,
+      createdAt: orderDate.toISOString(),
+
+      // Prisma 8 nested relation creation
+      items: (items) => items.create(orderItemsData),
+    });
+  }
+
+  console.log("database seeded");
   await db.close();
 }
 
