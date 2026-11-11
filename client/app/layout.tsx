@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Inter, Manrope } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { Nav } from "@/components/nav/nav"
 
@@ -36,11 +37,13 @@ export default function RootLayout({
     >
       <body className="flex flex-col">
         <ThemeProvider>
-          <Nav/>
-          <main className="flex flex-1 flex-col min-w-0">
-             {children}
-          </main>
-         </ThemeProvider>
+          <TooltipProvider>
+            <Nav/>
+            <main className="flex flex-1 flex-col min-w-0">
+               {children}
+            </main>
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
