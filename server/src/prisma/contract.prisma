@@ -1,5 +1,14 @@
 // use prisma-8
 
+enum OrderStatus {
+  PENDING
+  PAID
+  COMPLETED
+  RETURNED
+  REFUNDED
+
+}
+
   model Category {
   id        String      @id @default(uuid())
   title     String   @unique
@@ -15,8 +24,33 @@ model Product {
   categoryTitle String 
   imageUrl  String
   price     Decimal
+  orderItems OrderItem[]
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
 
   @@index([categoryTitle])
+}
+
+model Order {
+  id       String      @id @default(uuid())
+  items   OrderItem[]
+  status  OrderStatus @default(PENDING)
+  total    Decimal
+  createdAt TimestamptzString @default(now())
+
+  @@index([status, createdAt])
+}
+
+model OrderItem {
+  id       String      @id @default(uuid())
+  order  Order       @relation(fields: [orderId], references: [id] )
+  orderId String
+  item    Product   @relation(fields: [itemId], references: [id])
+  itemId  String
+  quantity Int  @default(1)
+  unitPrice Decimal
+  totalPrice Decimal
+  createdAt TimestamptzString @default(now())
+
+ @@index([orderId, itemId])
 }

@@ -7,11 +7,11 @@
   "type": "module",
   "main": "app.ts",
   "scripts": {
-    
     "test": "echo \"Error: no test specified\" && exit 1",
     "contract:emit": "prisma contract emit"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.6.0",
     "@prisma/orm-postgres": "^8.0.0-rc.17",
     "dotenv": "^18.0.6",
     "express": "^5.2.1"
