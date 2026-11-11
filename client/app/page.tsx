@@ -1,10 +1,9 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ProductsGrid } from "@/components/products/products-grid"
+import {getHomepageProducts} from "@/lib/data"
 export default async function Page() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
-  const data = await fetch(`${apiUrl}/api/products`)
-  const productsData = await data.json()
+  const data = await getHomepageProducts()
 
   return (
     <div className="flex w-full flex-col">
@@ -16,7 +15,7 @@ export default async function Page() {
               Storefront With Admin Dashboard
             </h1>
             <p className="max-w-xl text-sm text-foreground md:text-base">
-              Commerce powered by Next.js, Node.js, and PostgreSQL.
+              Commerce powered by Next.js, Express, and PostgreSQL.
             </p>
           </div>
         </div>
@@ -28,7 +27,7 @@ export default async function Page() {
             <Link href="/collections/all">View All</Link>
           </Button>
         </div>
-        <ProductsGrid productsData={productsData} />
+        <ProductsGrid productsData={data} />
       </section>
     </div>
   )
