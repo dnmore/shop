@@ -2,7 +2,7 @@ import { ProductCard } from "./product-card"
 
 type ProductsGridProps = {
   productsData: {
-    products: ProductCard[]
+    products: Product[]
   }
 }
 

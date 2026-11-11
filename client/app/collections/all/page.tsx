@@ -1,13 +1,12 @@
 import { ProductsGrid } from "@/components/products/products-grid"
+import { getAllProducts } from "@/lib/data"
 
 export default async function Page() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
-  const data = await fetch(`${apiUrl}/api/products/all`)
-  const productsData = await data.json()
+  const data = await getAllProducts()
 
   return (
     <div>
-      <ProductsGrid productsData={productsData} />
+      <ProductsGrid productsData={data} />
     </div>
   )
 }
