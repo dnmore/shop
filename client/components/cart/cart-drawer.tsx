@@ -76,7 +76,10 @@ export function CartDrawer() {
                   />
                   <div className="flex-1">
                     <h3 className="font-medium">{item.name}</h3>
-                    <p className="text-lg font-bold">${item.price}</p>
+                    <p className="text-lg font-semibold">{new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(item.price)}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button
@@ -114,7 +117,10 @@ export function CartDrawer() {
             <>
               <div className="mb-4 flex w-full justify-between">
                 <p className="text-lg">Total</p>
-                <p className="text-xl font-bold">${totalPrice}</p>
+                <p className="text-xl font-semibold">{new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(totalPrice)}</p>
               </div>
               <div className="flex flex-col gap-2 md:flex-row">
                 <Button>Go To Checkout</Button>
