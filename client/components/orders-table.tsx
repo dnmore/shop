@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+
 type OrderTableProps = {
   lastOrders: Order[]
 }
