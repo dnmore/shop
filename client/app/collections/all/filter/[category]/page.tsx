@@ -1,3 +1,4 @@
+import type { Metadata} from "next"
 import { ProductCard } from "@/components/products/product-card"
 import { getProductsPerCategory } from "@/lib/data"
 import {
@@ -8,6 +9,10 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty"
 import { Folder } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Category"
+}
 
 export default async function Page(props: {
   params: Promise<{ category: string }>

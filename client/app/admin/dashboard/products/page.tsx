@@ -1,3 +1,4 @@
+import type { Metadata} from "next"
 import { columns } from "./columns"
 import { DataTable } from "@/components/ui/data-table"
 import { getAllProducts } from "@/lib/data"
@@ -9,6 +10,10 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty"
 import { Folder } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Products"
+}
 
 export default async function Page() {
   const data = await getAllProducts()

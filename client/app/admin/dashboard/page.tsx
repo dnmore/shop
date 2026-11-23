@@ -1,3 +1,4 @@
+import type { Metadata} from "next"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 
 import { SectionCards } from "@/components/section-cards"
@@ -11,6 +12,10 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty"
 import { Folder } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Analytics"
+}
 
 export default async function Page() {
   const statsData = await getDashboardStats()

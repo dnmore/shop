@@ -1,3 +1,4 @@
+import type { Metadata} from "next"
 import { ProductsGrid } from "@/components/products/products-grid"
 import { getAllProducts } from "@/lib/data"
 import {
@@ -8,6 +9,10 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty"
 import { Folder } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Collections"
+}
 
 export default async function Page() {
   const data = await getAllProducts()
