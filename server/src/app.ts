@@ -4,7 +4,7 @@ import express, {
   type Response,
   type NextFunction,
 } from "express";
-import { db } from "./prisma/db";
+import { db } from "./prisma/db.js";
 import cors from "cors";
 
 const app: Express = express();
